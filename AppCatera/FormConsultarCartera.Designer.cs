@@ -8,7 +8,7 @@ using System.Drawing;
 
 namespace AppCatera
 {
-    partial class Form1
+    partial class FormConsultarCartera
     {
         private System.ComponentModel.IContainer components = null;
         private TableLayoutPanel tableLayoutPanel;

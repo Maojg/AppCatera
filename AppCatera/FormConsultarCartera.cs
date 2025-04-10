@@ -8,14 +8,14 @@ using System.Collections.Generic;
 
 namespace AppCatera
 {
-    public partial class Form1 : Form
+    public partial class FormConsultarCartera : Form
     {
         private string connectionString = "Server=SRVMED02\\SRVMED02;Database=Factu01;Integrated Security=True;TrustServerCertificate=True;";
         private string selectedAnoMes = "";
         private string selectedSector = "";
         private string selectedCoordinador = "";
 
-        public Form1()
+        public FormConsultarCartera()
         {
             InitializeComponent();
             LoadSectors();

@@ -1,22 +1,31 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace AppCatera
 {
     static class Program
     {
-        /// <summary>
-        /// Punto de entrada principal para la aplicación.
-        /// </summary>
         [STAThread]
         static void Main()
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+
+            // Mostrar el formulario de carga
+            using (FormLoading splash = new FormLoading())
+            {
+                splash.Show();
+                splash.Refresh();
+
+                // Simula la carga de recursos pesados (puedes reemplazarlo con inicialización real)
+                System.Threading.Thread.Sleep(3000);
+
+                splash.Close();
+            }
+
+            // Iniciar el formulario principal
+            Application.Run(new FormHome());
         }
     }
 }
