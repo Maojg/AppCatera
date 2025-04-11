@@ -60,6 +60,7 @@
             this.Controls.Add(this.button1);
             this.Name = "FormHome";
             this.Text = "FormHome";
+            this.Load += new System.EventHandler(this.FormHome_Load);
             this.ResumeLayout(false);
 
         }
