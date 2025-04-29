@@ -55,6 +55,10 @@ namespace AppCatera
             actualizarClientesForm.Show();
         }
 
+        private void FormHome_Load(object sender, EventArgs e)
+        {
+
+        }
     }
     public partial class FormLoading : Form
     {
