@@ -18,10 +18,12 @@ namespace AppCatera
         public FormConsultarCartera()
         {
             InitializeComponent();
+            SetDefaultAnoMes();
             LoadSectors();
             LoadCoordinadores();
             ConfigureDataGridView();
             LoadAccionesValidas(); // Cargar las acciones activas al iniciar
+            
 
 
             // Eventos para formateo y validaciones en el DataGridView
@@ -212,10 +214,11 @@ namespace AppCatera
                         // Asignar los datos al DataGridView
                         dataGridViewResults.DataSource = null;  // Evitar problemas de refresco
                         dataGridViewResults.DataSource = dt;
+                        SetColumnWidths();
                         dataGridViewResults.ColumnHeadersVisible = true;
                         dataGridViewResults.Refresh();
                         dataGridViewResults.Update();
-                        dataGridViewResults.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
+                        //dataGridViewResults.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells); // Esta columna en particular Pone Automatico y anula el tamaño custom de columna
                     }
                 }
             }
@@ -481,10 +484,10 @@ namespace AppCatera
             dataGridViewResults.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.None;
 
             // Ajustar tamaño de columnas y encabezados
-            dataGridViewResults.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+            //dataGridViewResults.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells; // Esta columna en particular Pone Automatico y anula el tamaño custom de columna
             dataGridViewResults.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.None;
             dataGridViewResults.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
-            dataGridViewResults.ColumnHeadersHeight = 90;  // Aumentar la altura de los encabezados
+            dataGridViewResults.ColumnHeadersHeight = 100;  // Aumentar la altura de los encabezados
 
             // Aplicar estilo a los encabezados
             dataGridViewResults.EnableHeadersVisualStyles = false;
@@ -497,7 +500,16 @@ namespace AppCatera
             foreach (DataGridViewColumn col in dataGridViewResults.Columns)
             {
                 col.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;  // Centrar los datos
+                col.Width = 50;
+                dataGridViewResults.ColumnHeadersDefaultCellStyle.Padding = new Padding(5); // Espaciado interno
+                dataGridViewResults.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single; // Borde simple
+                col.MinimumWidth = 60;
+                col.Resizable = DataGridViewTriState.True;
             }
+            dataGridViewResults.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(64, 64, 64); // Fondo gris oscuro
+            dataGridViewResults.ColumnHeadersDefaultCellStyle.SelectionBackColor = Color.FromArgb(100, 100, 100); // Fondo al seleccionar
+            dataGridViewResults.GridColor = Color.LightGray; // Color de las líneas de cuadrícula
+            dataGridViewResults.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal; // Líneas horizontales
 
             // Alternar colores de filas para mejorar la lectura
             dataGridViewResults.AlternatingRowsDefaultCellStyle.BackColor = Color.AliceBlue;
@@ -509,6 +521,60 @@ namespace AppCatera
             // Bordes y estilos generales
             dataGridViewResults.BorderStyle = BorderStyle.Fixed3D;
         }
+
+        private void SetColumnWidths()
+        {
+            if (dataGridViewResults.Columns.Count > 0)
+            {
+                foreach (DataGridViewColumn column in dataGridViewResults.Columns)
+                {
+                    switch (column.Name)
+                    {
+                        case "Ciudad":
+                            column.Width = 80;
+                            break;
+                        case "NIT":
+                            column.Width = 80;
+                            break;
+                        case "Nombre":
+                            column.Width = 120;
+                            break;
+                        case "Factura":
+                            column.Width = 80;
+                            break;
+                        case "Fecha":
+                        case "Vence":
+                        case "FechaCompromiso":
+                            column.Width = 80;
+                            break;
+                        case "Plazo":
+                        case "Dias":
+                            column.Width = 50;
+                            break;
+                        case "Cartera30":
+                        case "Cartera60":
+                        case "Cartera90":
+                        case "MasDe91":
+                        case "PorVencer":
+                        case "Saldo":
+                            column.Width = 80;
+                            break;
+                        case "AccionComite":
+                            column.Width = 50;
+                            break;
+                        case "Accion":
+                            column.Width = 100;
+                            break;
+                        default:
+                            column.Width = 80; // Ancho por defecto para columnas que no están en la lista
+                            break;
+                    }
+                    column.MinimumWidth = 60; // Mínimo para que siempre sean visibles
+                    column.Resizable = DataGridViewTriState.True; // El usuario puede ampliar o reducir
+                }
+            }
+        }
+
 
         private List<string> accionesValidas = new List<string>(); // Lista de acciones permitidas
 
@@ -565,6 +631,12 @@ namespace AppCatera
                     dt.DefaultView.RowFilter = $"Nombre LIKE '%{filtro}%' OR Convert(NIT, 'System.String') LIKE '%{filtro}%'";
                 }
             }
+        }
+        private void SetDefaultAnoMes()
+        {
+            DateTime fechaActual = DateTime.Now;
+            textBoxAno.Text = fechaActual.Year.ToString();
+            textBoxMes.Text = fechaActual.Month.ToString("D2"); // D2 => Formato de 2 dígitos
         }
 
 

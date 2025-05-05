@@ -52,6 +52,12 @@ namespace AppCatera
             this.tableLayoutPanel.AutoSize = true;
             this.tableLayoutPanel.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             this.tableLayoutPanel.Dock = DockStyle.Top;
+            this.tableLayoutPanel.Padding = new Padding(10);           // Espaciado interno
+            this.tableLayoutPanel.Margin = new Padding(10);            // Espaciado externo
+            this.tableLayoutPanel.CellBorderStyle = TableLayoutPanelCellBorderStyle.None;
+            this.tableLayoutPanel.BackColor = Color.WhiteSmoke;        // Fondo sutil
+            this.tableLayoutPanel.GrowStyle = TableLayoutPanelGrowStyle.AddRows; // Evita desbordes extraños
+
 
             // Definir columnas y filas del TableLayoutPanel
             for (int i = 0; i < 11; i++)
@@ -73,7 +79,7 @@ namespace AppCatera
 
             // 🔹 Campo para Año
             this.textBoxAno = new System.Windows.Forms.TextBox();
-            this.textBoxAno.Size = new System.Drawing.Size(50, 20);
+            this.textBoxAno.Size = new System.Drawing.Size(60, 25);
             this.textBoxAno.TextChanged += new System.EventHandler(this.txtAnoMes_TextChanged);
             this.tableLayoutPanel.Controls.Add(this.textBoxAno, 1, 0);
             SetCueBanner(this.textBoxAno, "YYYY");
@@ -87,7 +93,7 @@ namespace AppCatera
 
             // 🔹 Campo para Mes
             this.textBoxMes = new System.Windows.Forms.TextBox();
-            this.textBoxMes.Size = new System.Drawing.Size(40, 20);
+            this.textBoxMes.Size = new System.Drawing.Size(40, 25);
             this.textBoxMes.TextChanged += new System.EventHandler(this.txtAnoMes_TextChanged);
             this.tableLayoutPanel.Controls.Add(this.textBoxMes, 3, 0);
             SetCueBanner(this.textBoxMes, "MM");
@@ -101,7 +107,7 @@ namespace AppCatera
 
             // 🔹 ComboBox para seleccionar Coordinador
             this.comboBoxCoordinador = new System.Windows.Forms.ComboBox();
-            this.comboBoxCoordinador.Size = new System.Drawing.Size(180, 20);
+            this.comboBoxCoordinador.Size = new System.Drawing.Size(200, 25);
             this.comboBoxCoordinador.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxCoordinador.SelectedIndexChanged += new System.EventHandler(this.comboBoxCoordinador_SelectedIndexChanged);
             this.tableLayoutPanel.Controls.Add(this.comboBoxCoordinador, 5, 0);
@@ -115,7 +121,7 @@ namespace AppCatera
 
             // 🔹 ComboBox para seleccionar sector
             this.comboBoxSectors = new System.Windows.Forms.ComboBox();
-            this.comboBoxSectors.Size = new System.Drawing.Size(180, 20);
+            this.comboBoxSectors.Size = new System.Drawing.Size(200, 25);
             this.comboBoxSectors.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxSectors.SelectedIndexChanged += new System.EventHandler(this.comboBoxSectors_SelectedIndexChanged);
             this.tableLayoutPanel.Controls.Add(this.comboBoxSectors, 7, 0);
@@ -148,6 +154,7 @@ namespace AppCatera
             this.labelBuscarCliente.Font = labelFont;
             this.tableLayoutPanel.Controls.Add(this.labelBuscarCliente, 0, 1); // Segunda fila
 
+
             // 🔹 Campo de búsqueda de cliente en la segunda fila
             this.textBoxBuscarCliente = new System.Windows.Forms.TextBox();
             this.textBoxBuscarCliente.Size = new System.Drawing.Size(200, 20);
@@ -157,7 +164,7 @@ namespace AppCatera
             // 🔹 DataGridView - Tabla de resultados
             this.dataGridViewResults = new System.Windows.Forms.DataGridView();
             this.dataGridViewResults.Dock = DockStyle.Fill;
-            this.dataGridViewResults.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            this.dataGridViewResults.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
             this.dataGridViewResults.AllowUserToAddRows = false;
             this.dataGridViewResults.AllowUserToDeleteRows = false;
             this.dataGridViewResults.BackgroundColor = Color.White;
